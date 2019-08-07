@@ -1,0 +1,95 @@
+.button {
+    background-color: #444444;
+    border: none;
+    color: #CCCCCC;
+    text-align: center;
+    cursor: pointer;
+    width: 40%;
+    height: 50px;
+    padding-bottom: 10px;
+    padding-top: 10px;
+    white-space: pre-line;
+    float: left;
+}
+
+.buttonInfo {
+    font-size: 10px;
+    width: 50%;
+    height: 50px;
+    padding: 2px;
+    overflow: auto;
+    float: right;
+}
+
+.split {
+    clear: both;
+}
+
+.column_top {
+    float: left;
+    width: 25%;
+}
+
+.column_bottom {
+    float: left;
+    width: 25%;
+    height: 400px;
+    overflow-y: auto;
+}
+
+.row:after {
+    content: "";
+    display: table;
+    clear: both;
+    text-align: center;
+}
+
+#wpmField {
+    font-size: 12px;
+    float: left;
+    margin-top: 32px;
+}
+
+#title {
+    font-size: 64px;
+    font-weight: bold;
+    text-align: center;
+}
+
+#progressBar {
+    width: 100%;
+    background-color: #444444;
+}
+
+#progress {
+    height: 10px;
+    background-color: #CCCCCC;
+}
+
+#displayField {
+    white-space: nowrap;
+    padding: 0px;
+    background-color: #444444;
+    font-size: 24px;
+    font-weight: bold;
+}
+
+#inputField {
+    display: flex;
+    flex-flow: column wrap;
+    align-items: left;
+    border: 10px;
+}
+
+body {
+    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+    background-color: #1E1E1E;
+    color: #CCCCCC;
+    overflow-x: hidden;
+}
+
+input {
+    font-size: 100%;
+    width: 50%;
+    background-color: #CCCCCC;
+}

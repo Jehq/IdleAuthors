@@ -1,0 +1,12 @@
+To Do
+- Scientific notation (DONE)
+- Upgrades
+- Stats
+- Words Per Minute (DONE)
+- Events
+- Formatting
+- Balancing
+- SFX / Music
+
+Bugs
+- WPM progress bar only cycling once
