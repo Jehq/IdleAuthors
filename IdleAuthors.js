@@ -1,4 +1,6 @@
-function randInt(max) { 
+'use strict';
+
+function randInt(max) {
     return Math.floor(Math.random() * max);
 }
 
@@ -6,8 +8,8 @@ function randWord() {
     return wordBank[randInt(wordBank.length)] + " ";
 }
 
-function roundNum(num, n) { 
-    var m = Math.pow(10, n);
+function roundNum(num, n) {
+    const m = Math.pow(10, n);
     return parseFloat(Math.round(num * m) / m).toFixed(n);
 }
 
@@ -26,7 +28,7 @@ function commaNum(num) {
 
 function sciNum(num, n) {
     var mag = Math.floor(Math.log10(num));
-    num = roundNum(num / Math.pow(10, mag), n);    
+    num = roundNum(num / Math.pow(10, mag), n);
     return num + "E+" + mag;
 }
 
@@ -35,7 +37,7 @@ function numDisplay(num) {
         return roundNum(num, 2);
     }
 
-    if  (num < 999999999) {
+    if (num < 999999999) {
         return commaNum(num);
     }
 
@@ -46,17 +48,19 @@ function numDisplay(num) {
 
 function setWordsDisplay() {
     var tempDisplay = "";
-    for (var i = 0; i < displayLength; i++) {
-        var word = displayWords[i];
-        tempDisplay += word;
+    // It's bad practice to iterate over one thing (displayLength)
+    // and just assume that another thing (displayWords) is >= to it in size
+    for (var i = 0; i < displayWords.length; i++) {
+        tempDisplay += displayWords[i];
     }
-    displayField.innerHTML = tempDisplay;
+    displayField.innerHTML = displayWords.reduce((accumulator, currentValue) => accumulator + currentValue);
+    // displayField.innerHTML = tempDisplay;
 }
 
 function setCurrencyDisplay() {
     var wordText = "Words: " + numDisplay(wordCount) + "<br>";
     var wordIncomeText = "Words Per Second: " + numDisplay(wordIncome);
-    
+
     var moneyText = "Money: $" + numDisplay(moneyCount) + "<br>";
     var moneyIncomeText = "Money Per Second: $" + numDisplay(moneyIncome);
 
@@ -69,9 +73,9 @@ function checkInputWord() {
         displayWords.splice(0, 1);
         displayWords.push(randWord());
         inputField.value = "";
-        wordCount += 1;
-        wordCountTotal += 1;
-        currentWPM += 1;
+        wordCount++;
+        wordCountTotal++;
+        currentWPM++;
         setWordsDisplay();
     }
 }
@@ -91,7 +95,7 @@ function calculateIncome() {
 
 function incomePercent(n, type) {
     if (type == "W") {
-        
+
         if (buttonCountW[n] == 0) {
             return "0.00%"
         }
@@ -101,36 +105,34 @@ function incomePercent(n, type) {
     }
 
     if (type == "M") {
-        
+
         if (buttonCountM[n] == 0) {
             return "0.00%"
         }
-        
+
         var x = incomeM[n] * buttonCountM[n];
         return roundNum(100 * x / wordIncome, 2) + "%";
     }
 }
 
 function calculateWPM() {
-    var minute = 6000;
+    console.log("Calculating wpm");
     var width = 0;
 
     setInterval(function () {
-        width = 0;
-        if (currentWPM > recordWPM) {
-            recordWPM = currentWPM
-        }
+        if (width >= 100) {
+            width = 1;
+            if (currentWPM > recordWPM) {
+                recordWPM = currentWPM;
+            }
 
-        wpmField.innerHTML = "Recent WPM: " + currentWPM + "<br>";
-        wpmField.innerHTML += "Record WPM: " + recordWPM;
-        currentWPM = 0;
-    }, minute);
-    
-    setInterval(function () {
-        width += 1;
+            wpmField.innerHTML = "Recent WPM: " + currentWPM + "<br>" + "Record WPM: " + recordWPM;
+            currentWPM = 0;
+        }
+        width++;
         progress.style.width = width + "%";
         progress.style.color = "#CCCCCC";
-    }, minute / 100);
+    }, 60); // One hundred times per minute
 }
 
 function setButtonText(buttonType) {
@@ -138,12 +140,12 @@ function setButtonText(buttonType) {
         for (var i = 0; i < buttonsW.length; i++) {
             var button = buttonsW[i][0];
             var info = buttonsW[i][1];
-            
+
             var exp = Math.floor(buttonCountW[i] / 5);
             var cost = costsW[i] * Math.pow(2, exp);
             button.textContent = buttonNamesW[i] + "\r\n";
             button.textContent += numDisplay(cost, 1) + " words";
-            
+
             var x = numDisplay(incomeW[i]);
             var y = incomePercent(i, "W");
             info.innerHTML = "Owned: " + buttonCountW[i] + "<br>";
@@ -156,7 +158,7 @@ function setButtonText(buttonType) {
         for (var i = 0; i < buttonsM.length; i++) {
             var button = buttonsM[i][0];
             var info = buttonsM[i][1];
-            
+
             var exp = Math.floor(buttonCountM[i] / 5);
             var cost = costsM[i] * Math.pow(2, exp);
             button.textContent = buttonNamesM[i] + "\r\n ";
@@ -173,7 +175,7 @@ function setButtonText(buttonType) {
 
 function generateButton(buttonType) {
     var br = document.createElement("br");
-    
+
     var div = document.createElement("div");
     div.classList.add("split");
 
@@ -182,7 +184,7 @@ function generateButton(buttonType) {
 
     var button = document.createElement("button");
     button.classList.add("button");
-        
+
     if (buttonType == "W") {
 
         if (buttonNumberW > buttonNamesW.length) {
@@ -193,25 +195,25 @@ function generateButton(buttonType) {
         buttonCountW.push(0);
 
         buttonsW.push([button, info]);
-        button.addEventListener("click", function() { 
+        button.addEventListener("click", function () {
             var exp = Math.floor(buttonCountW[n] / 5);
             var cost = costsW[n] * Math.pow(2, exp);
-            
+
             if (wordCount >= cost) {
                 wordCount -= cost;
-                buttonCountW[n] += 1;
+                buttonCountW[n]++;
                 calculateIncome();
                 setButtonText("W");
             }
         });
-        
-        div.appendChild(button);        
-        div.appendChild(info); 
+
+        div.appendChild(button);
+        div.appendChild(info);
         buttonFieldW.append(div);
         buttonFieldW.append(br);
         calculateIncome();
         setButtonText("W");
-        buttonNumberW += 1;
+        buttonNumberW++;
     }
 
     if (buttonType == "M") {
@@ -221,16 +223,16 @@ function generateButton(buttonType) {
         }
 
         var n = buttonNumberM;
-        buttonCountM.push(0);  
+        buttonCountM.push(0);
 
         buttonsM.push([button, info]);
-        button.addEventListener("click", function() {
+        button.addEventListener("click", function () {
             var exp = Math.floor(buttonCountM[n] / 5);
             var cost = costsM[n] * Math.pow(2, exp);
 
             if (moneyCount >= cost) {
                 moneyCount -= cost;
-                buttonCountM[n] += 1; 
+                buttonCountM[n]++;
                 calculateIncome();
                 setButtonText("M");
             }
@@ -241,14 +243,14 @@ function generateButton(buttonType) {
         buttonFieldM.appendChild(div);
         buttonFieldM.appendChild(br);
         setButtonText("M");
-        buttonNumberM += 1;
+        buttonNumberM++;
     }
 }
 
 function update() {
-    setInterval(function() {
+    setInterval(function () {
         checkInputWord();
-        setCurrencyDisplay();       
+        setCurrencyDisplay();
         wordCount += wordIncome / tickRate;
         moneyCount += moneyIncome / tickRate;
         wordCountTotal += wordIncome / tickRate;
@@ -266,15 +268,15 @@ function update() {
     calculateWPM();
 }
 
-function initialize() {   
+function initialize() {
     var tempDisplay = "";
 
-    for (var i = 0; i < displayLength; i++) {
-        var word = randWord();
+    for (var i = 0; i < 100; i++) {
+        const word = randWord();
         tempDisplay += word;
-        displayWords.push(word); 
+        displayWords.push(word);
     }
- 
+
     displayField.innerHTML = tempDisplay;
     update();
 }

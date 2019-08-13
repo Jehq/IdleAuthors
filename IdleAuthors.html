@@ -1,49 +1,52 @@
 <!DOCTYPE html>
+<meta charset="utf-8" />
 
 <html>
 
 <head>
-    <link rel = "stylesheet" type = "text/css" href = "IdleAuthors.css">
+    <link rel="stylesheet" type="text/css" href="IdleAuthors.css">
 </head>
 
-<body onload = "initialize()">
+<body onload="initialize()">
 
-    <div class = "split"> 
-        <div id = "wpmField"> 
-            Recent WPM: 0 <br>
-            Record WPM: 0
-            <div id = "progressBar"> 
-                <div id = "progress"> </div>
+    <div class="split">
+        <div id=wpmContainer>
+            <div id="wpmField">
+                Recent WPM: 0 <br>
+                Record WPM: 0
             </div>
+            <div id="progressBar">
+                    <div id="progress"> </div>
+                </div>
         </div>
-        <div id = "title">
+        <div id="title">
             IDLE AUTHORS
         </div>
     </div>
 
-    <div class = "nowrap" id = "displayField"> </div>
-    <input class = "input" type = "text" id = "inputField"> </input>
+    <div class="nowrap" id="displayField"> </div>
+    <input class="input" type="text" id="inputField"> </input>
 
-    <div class = "row">
-        <div class = "column_top">
-            <h2 id = "currencyFieldW"> </h2>
+    <div class="row">
+        <div class="column_top">
+            <h2 id="currencyFieldW"> </h2>
         </div>
-        <div class = "column_top">
-            <h2 id = "currencyFieldM"> </h2>
+        <div class="column_top">
+            <h2 id="currencyFieldM"> </h2>
         </div>
     </div>
 
-    <div class = "row"> 
-        <div class = "column_bottom">
-            <p id = "buttonFieldW"> </p>
+    <div class="row">
+        <div class="column_bottom">
+            <p id="buttonFieldW"> </p>
         </div>
-        <div class = "column_bottom">
-            <p id = "buttonFieldM"> </p>
+        <div class="column_bottom">
+            <p id="buttonFieldM"> </p>
         </div>
     </div>
 
-    <script src = "Data.js"> </script>
-    <script src = "IdleAuthors.js"> </script>
+    <script src="Data.js"> </script>
+    <script src="IdleAuthors.js"> </script>
 </body>
 
 </html>
