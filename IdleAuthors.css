@@ -6,8 +6,6 @@
     cursor: pointer;
     width: 40%;
     height: 50px;
-    padding-bottom: 10px;
-    padding-top: 10px;
     white-space: pre-line;
     float: left;
 }
@@ -16,13 +14,28 @@
     font-size: 10px;
     width: 50%;
     height: 50px;
-    padding: 2px;
+    padding: 3px;
     overflow: auto;
     float: right;
 }
 
-.split {
+.switch {
+    font-size: 16px;
+    background-color: #444444;
+    border: none;
+    color: #CCCCCC;
+    width: 95%;
+    text-align: center;
+    cursor: pointer;
+    white-space: pre-line;
+    float: left;
+}
+
+.row:after {
+    content: "";
+    display: table;
     clear: both;
+    text-align: center;
 }
 
 .column_top {
@@ -37,22 +50,6 @@
     overflow-y: auto;
 }
 
-.row:after {
-    content: "";
-    display: table;
-    clear: both;
-    text-align: center;
-}
-
-#wpmField {
-    font-size: 12px;
-    margin-top: 32px;
-}
-
-#wpmContainer {
-    float: left;
-}
-
 #title {
     font-size: 64px;
     font-weight: bold;
@@ -61,7 +58,7 @@
 
 #progressBar {
     width: 100%;
-    background-color: #444444;
+    background-color: #1E1E1E;
 }
 
 #progress {
@@ -71,17 +68,39 @@
 
 #displayField {
     white-space: nowrap;
-    padding: 0px;
     background-color: #444444;
-    font-size: 24px;
+    font-size: 32px;
+    width: 100%;
     font-weight: bold;
+    overflow-x: hidden;
 }
 
 #inputField {
     display: flex;
     flex-flow: column wrap;
     align-items: left;
-    border: 10px;
+    background-color: #CCCCCC;
+    font-size: 100%;
+    width: 100%;
+    font-weight: bold;
+    overflow-x: hidden;
+}
+
+#flexField {
+    float: left;
+    width: 73.75%;
+    height: 400px;
+    overflow-y: auto;
+    background: #444444;
+}
+
+#wpmField {
+    font-size: 12px;
+    font-weight: bold;
+    background-color: #444444;
+    color: #CCCCCC;
+    width: 95%;
+    padding: 3px;
 }
 
 body {
@@ -89,10 +108,5 @@ body {
     background-color: #1E1E1E;
     color: #CCCCCC;
     overflow-x: hidden;
-}
-
-input {
-    font-size: 100%;
-    width: 50%;
-    background-color: #CCCCCC;
+    overflow-y: hidden;
 }

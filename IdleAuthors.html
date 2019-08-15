@@ -1,4 +1,5 @@
 <!DOCTYPE html>
+
 <meta charset="utf-8" />
 
 <html>
@@ -9,30 +10,54 @@
 
 <body onload="initialize()">
 
-    <div class="split">
-        <div id=wpmContainer>
-            <div id="wpmField">
-                Recent WPM: 0 <br>
-                Record WPM: 0
-            </div>
-            <div id="progressBar">
-                    <div id="progress"> </div>
-                </div>
-        </div>
-        <div id="title">
-            IDLE AUTHORS
-        </div>
+    <div id="title">
+        IDLE AUTHORS
     </div>
 
-    <div class="nowrap" id="displayField"> </div>
-    <input class="input" type="text" id="inputField"> </input>
+    <div id="displayField"> </div>
+    
+    <input id="inputField"> </input>
 
     <div class="row">
+
         <div class="column_top">
             <h2 id="currencyFieldW"> </h2>
         </div>
+        
         <div class="column_top">
             <h2 id="currencyFieldM"> </h2>
+        </div>
+
+        <div class="column_top" style="width: 50%">
+            <div class="row">
+                
+                <div class="column_top">
+                    <button id="U" class="switch" onclick="changeFlex(this.id)">
+                        Upgrades <br>
+                    </button>
+                </div>
+                
+                <div class="column_top">
+                    <button id="A" class="switch" onclick="changeFlex(this.id)">
+                        Achievements <br>
+                    </button>
+                </div>
+                
+                <div class="column_top">
+                    <button id="S" class="switch" onclick="changeFlex(this.id)">
+                        Stats <br>
+                    </button>
+                </div>
+                
+                <div class="column_top">
+                    <div id="wpmField">
+                        Typing Speed: 0 words/min <br>
+                    </div>
+                    <div id="progressBar">
+                        <div id="progress"> </div>
+                    </div>
+                </div>
+            </div>
         </div>
     </div>
 
@@ -40,8 +65,13 @@
         <div class="column_bottom">
             <p id="buttonFieldW"> </p>
         </div>
+        
         <div class="column_bottom">
             <p id="buttonFieldM"> </p>
+        </div>
+        
+        <div class="column_bottom" style="width: 50%">
+            <div id="flexField"> </div>
         </div>
     </div>
 

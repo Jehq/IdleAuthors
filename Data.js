@@ -1,9 +1,12 @@
-'use strict';
+"use strict";
 
 const words = [
     [], // Zero letter words
+
     [], // One letter words
+
     [], // Two letter words
+
     ["jar", "war", "bee", "wan", "owe", "era", "hit", "bet", "red", "bus", "ass", "buy", "sky", "pat", "pen", "dry", "log", "bow", "pet", "tip", "bug", "rug", "dad", "lot", "ban", "lie", "fun", "pie", "gap", "aid", "god", "use", "gut", "lay", "fee", "can", "new", "van", "rip", "sue", "kit", "ski", "can", "ill", "one", "dam", "dot", "fit", "bit", "mad", "art", "key", "oak", "ice", "fan", "age", "pan", "cap", "toe", "hit", "nod", "end", "hot", "pad", "bay", "day", "sir", "lie", "tub", "law", "egg", "leg", "hat", "nut", "ego", "fog", "bed", "sum", "bag", "dna", "big", "mom", "bad", "tax", "tin", "ban", "bar", "aim", "dip", "pop", "spy", "old", "cut", "ink", "fat", "far", "tap", "rob", "mix", "tag"],
 
     ["clue", "chop", "echo", "beef", "weak", "need", "play", "lone", "sail", "main", "fuel", "good", "date", "beam", "visa", "pace", "bath", "rock", "desk", "bean", "rest", "mere", "flee", "oven", "glad", "back", "live", "fire", "bulk", "deem", "wrap", "pick", "luck", "tune", "soak", "fair", "barn", "earn", "wave", "odds", "lead", "park", "trap", "term", "spot", "lion", "form", "free", "room", "disc", "lime", "tilt", "hour", "palm", "hunt", "fist", "bike", "soul", "fall", "ship", "will", "stop", "aunt", "yard", "lawn", "boss", "mass", "rain", "hero", "deal", "cook", "vote", "seal", "coin", "lake", "view", "type", "wind", "lock", "sigh", "feel", "spin", "fire", "rose", "diet", "lend", "hook", "kill", "drum", "lean", "mark", "rice", "file", "pure", "news", "tire", "icon", "cool", "rare", "link"],
@@ -16,7 +19,6 @@ const words = [
 
     ["conclude", "northern", "negative", "teaching", "maintain", "customer", "exchange", "straight", "activity", "separate", "material", "congress", "position", "computer", "somewhat", "research", "decision", "audience", "division", "recently", "national", "identity", "economic", "employee", "somebody", "internet", "resident", "investor", "producer", "personal", "consider", "progress", "criminal", "daughter", "possible", "although", "announce", "directly", "probably", "training", "attitude", "industry", "analysis", "positive", "capacity", "chairman", "cultural", "medicine", "critical", "magazine", "indicate", "separate", "physical", "property", "minority", "catholic", "regional", "together", "approach", "election", "abortion", "location", "military", "everyone", "marriage", "domestic", "powerful", "director", "movement", "reporter", "complete", "document", "anywhere", "possibly", "interest", "pleasure", "neighbor", "complete", "category", "majority", "hospital", "contract", "attorney", "evidence", "religion", "supposed", "whatever", "district", "building", "familiar", "organize", "consumer", "painting", "learning", "language", "tomorrow", "argument", "violence", "surround", "reaction"]
 ];
-
 
 const buttonsW = [];
 
@@ -162,39 +164,46 @@ const incomeM = [
 
 var wordBank = [];
 
-for (var wordList of words) {
-    for (var word of wordList) {
+for (let wordList of words) {
+    for (let word of wordList) {
         wordBank.push(word);
     }
 }
 
-
 const tickRate = 60;
-var tickLength = 1000 / tickRate;
+let tickLength = 1000 / tickRate;
 
-var wpmField = document.getElementById("wpmField");
-var progress = document.getElementById("progress");
-var currentWPM = 0;
-var recordWPM = 0;
+const wpmField = document.getElementById("wpmField");
+const progress = document.getElementById("progress");
+let WPM = 0;
+let recordWPM = 0;
 
-var currencyFieldW = document.getElementById("currencyFieldW");
-var buttonFieldW = document.getElementById("buttonFieldW");
-var buttonNumberW = 0;
-var buttonCountW = [];
-var wordCount = 0;
-var wordCountTotal = 0;
-var wordIncome = 0;
+const currencyFieldW = document.getElementById("currencyFieldW");
+const buttonFieldW = document.getElementById("buttonFieldW");
+let buttonNumberW = 0;
+let buttonCountW = [];
+let wordCount = 0;
+let wordTotal = 0;
+let wordIncome = 0;
+let wordsTyped = 0;
 
-var currencyFieldM = document.getElementById("currencyFieldM");
-var buttonFieldM = document.getElementById("buttonFieldM");
-var buttonNumberM = 0;
-var buttonCountM = [];
-var moneyCount = 0;
-var moneyCountTotal = 0;
-var moneyIncome = 0;
+const currencyFieldM = document.getElementById("currencyFieldM");
+const buttonFieldM = document.getElementById("buttonFieldM");
+let buttonNumberM = 0;
+let buttonCountM = [];
+let moneyCount = 0;
+let moneyTotal = 0;
+let moneyIncome = 0;
 
-var displayField = document.getElementById("displayField");
-var displayLength = 100;
-var displayWords = [];
+const displayField = document.getElementById("displayField");
+let displayLength = 100;
+let displayWords = [];
 
-var inputField = document.getElementById("inputField");
+const inputField = document.getElementById("inputField");
+
+const flexField = document.getElementById("flexField");
+let flexHTML = "";
+let statsHTML = "";
+let timeHours = 0;
+let achievementsHTML = "";
+let upgradesHTML = "";

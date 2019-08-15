@@ -1,4 +1,4 @@
-'use strict';
+"use strict";
 
 function randInt(max) {
     return Math.floor(Math.random() * max);
@@ -9,15 +9,15 @@ function randWord() {
 }
 
 function roundNum(num, n) {
-    const m = Math.pow(10, n);
-    return parseFloat(Math.round(num * m) / m).toFixed(n);
+    let x = Math.pow(10, n);
+    return parseFloat(Math.round(num * x) / x).toFixed(n);
 }
 
 function commaNum(num) {
     num = roundNum(num, 0);
-    var digs = ("" + num).split("");
-    var output = "";
-    for (var i = 0; i < digs.length; i++) {
+    let digs = ("" + num).split("");
+    let output = "";
+    for (let i = 0; i < digs.length; i++) {
         output += digs[i];
         if (i < digs.length - 1 && (i - digs.length + 1) % 3 == 0) {
             output += ",";
@@ -27,7 +27,7 @@ function commaNum(num) {
 }
 
 function sciNum(num, n) {
-    var mag = Math.floor(Math.log10(num));
+    let mag = Math.floor(Math.log10(num));
     num = roundNum(num / Math.pow(10, mag), n);
     return num + "E+" + mag;
 }
@@ -47,22 +47,21 @@ function numDisplay(num) {
 }
 
 function setWordsDisplay() {
-    var tempDisplay = "";
-    // It's bad practice to iterate over one thing (displayLength)
-    // and just assume that another thing (displayWords) is >= to it in size
-    for (var i = 0; i < displayWords.length; i++) {
+    let tempDisplay = "";
+
+    for (let i = 0; i < displayWords.length; i++) {
         tempDisplay += displayWords[i];
     }
-    displayField.innerHTML = displayWords.reduce((accumulator, currentValue) => accumulator + currentValue);
-    // displayField.innerHTML = tempDisplay;
+
+    displayField.innerHTML = tempDisplay;
 }
 
 function setCurrencyDisplay() {
-    var wordText = "Words: " + numDisplay(wordCount) + "<br>";
-    var wordIncomeText = "Words Per Second: " + numDisplay(wordIncome);
+    let wordText = "Words: " + numDisplay(wordCount) + "<br>";
+    let wordIncomeText = "Words Per Second: " + numDisplay(wordIncome);
 
-    var moneyText = "Money: $" + numDisplay(moneyCount) + "<br>";
-    var moneyIncomeText = "Money Per Second: $" + numDisplay(moneyIncome);
+    let moneyText = "Money: $" + numDisplay(moneyCount) + "<br>";
+    let moneyIncomeText = "Money Per Second: $" + numDisplay(moneyIncome);
 
     currencyFieldW.innerHTML = wordText + wordIncomeText;
     currencyFieldM.innerHTML = moneyText + moneyIncomeText;
@@ -74,8 +73,9 @@ function checkInputWord() {
         displayWords.push(randWord());
         inputField.value = "";
         wordCount++;
-        wordCountTotal++;
-        currentWPM++;
+        wordTotal++;
+        wordsTyped++;
+        WPM ++;
         setWordsDisplay();
     }
 }
@@ -84,11 +84,11 @@ function calculateIncome() {
     moneyIncome = 0;
     wordIncome = 0;
 
-    for (var i = 0; i < buttonCountW.length; i++) {
+    for (let i = 0; i < buttonCountW.length; i++) {
         moneyIncome += buttonCountW[i] * incomeW[i];
     }
 
-    for (var i = 0; i < buttonCountM.length; i++) {
+    for (let i = 0; i < buttonCountM.length; i++) {
         wordIncome += buttonCountM[i] * incomeM[i];
     }
 }
@@ -100,7 +100,7 @@ function incomePercent(n, type) {
             return "0.00%"
         }
 
-        var x = incomeW[n] * buttonCountW[n];
+        let x = incomeW[n] * buttonCountW[n];
         return roundNum(100 * x / moneyIncome, 2) + "%";
     }
 
@@ -110,44 +110,44 @@ function incomePercent(n, type) {
             return "0.00%"
         }
 
-        var x = incomeM[n] * buttonCountM[n];
+        let x = incomeM[n] * buttonCountM[n];
         return roundNum(100 * x / wordIncome, 2) + "%";
     }
 }
 
 function calculateWPM() {
-    console.log("Calculating wpm");
-    var width = 0;
+    let width = 0;
 
     setInterval(function () {
         if (width >= 100) {
-            width = 1;
-            if (currentWPM > recordWPM) {
-                recordWPM = currentWPM;
+            width = 0;
+
+            if (WPM > recordWPM) {
+                recordWPM = WPM;
             }
 
-            wpmField.innerHTML = "Recent WPM: " + currentWPM + "<br>" + "Record WPM: " + recordWPM;
-            currentWPM = 0;
+            wpmField.innerHTML = "Typing speed: " + WPM + " words/min";
+            WPM = 0;
         }
+
         width++;
         progress.style.width = width + "%";
-        progress.style.color = "#CCCCCC";
-    }, 60); // One hundred times per minute
+    }, 600);
 }
 
 function setButtonText(buttonType) {
     if (buttonType == "W") {
-        for (var i = 0; i < buttonsW.length; i++) {
-            var button = buttonsW[i][0];
-            var info = buttonsW[i][1];
+        for (let i = 0; i < buttonsW.length; i++) {
+            let button = buttonsW[i][0];
+            let info = buttonsW[i][1];
 
-            var exp = Math.floor(buttonCountW[i] / 5);
-            var cost = costsW[i] * Math.pow(2, exp);
+            let exp = Math.floor(buttonCountW[i] / 5);
+            let cost = costsW[i] * Math.pow(2, exp);
             button.textContent = buttonNamesW[i] + "\r\n";
             button.textContent += numDisplay(cost, 1) + " words";
 
-            var x = numDisplay(incomeW[i]);
-            var y = incomePercent(i, "W");
+            let x = numDisplay(incomeW[i]);
+            let y = incomePercent(i, "W");
             info.innerHTML = "Owned: " + buttonCountW[i] + "<br>";
             info.innerHTML += "Each earning: $" + x + "/s <br>";
             info.innerHTML += "Earning percentage: " + y;
@@ -155,17 +155,17 @@ function setButtonText(buttonType) {
     }
 
     if (buttonType == "M") {
-        for (var i = 0; i < buttonsM.length; i++) {
-            var button = buttonsM[i][0];
-            var info = buttonsM[i][1];
+        for (let i = 0; i < buttonsM.length; i++) {
+            let button = buttonsM[i][0];
+            let info = buttonsM[i][1];
 
-            var exp = Math.floor(buttonCountM[i] / 5);
-            var cost = costsM[i] * Math.pow(2, exp);
+            let exp = Math.floor(buttonCountM[i] / 5);
+            let cost = costsM[i] * Math.pow(2, exp);
             button.textContent = buttonNamesM[i] + "\r\n ";
             button.textContent += "$" + numDisplay(cost, 2);
 
-            var x = numDisplay(incomeM[i]);
-            var y = incomePercent(i, "M");
+            let x = numDisplay(incomeM[i]);
+            let y = incomePercent(i, "M");
             info.innerHTML = "Owned: " + buttonCountM[i] + "<br>";
             info.innerHTML += "Each producing: " + x + " W/s <br>";
             info.innerHTML += "Production percentage: " + y;
@@ -174,15 +174,15 @@ function setButtonText(buttonType) {
 }
 
 function generateButton(buttonType) {
-    var br = document.createElement("br");
+    let br = document.createElement("br");
 
-    var div = document.createElement("div");
+    let div = document.createElement("div");
     div.classList.add("split");
 
-    var info = document.createElement("div");
+    let info = document.createElement("div");
     info.classList.add("buttonInfo");
 
-    var button = document.createElement("button");
+    let button = document.createElement("button");
     button.classList.add("button");
 
     if (buttonType == "W") {
@@ -191,13 +191,13 @@ function generateButton(buttonType) {
             return 0;
         }
 
-        var n = buttonNumberW;
+        let n = buttonNumberW;
         buttonCountW.push(0);
 
         buttonsW.push([button, info]);
         button.addEventListener("click", function () {
-            var exp = Math.floor(buttonCountW[n] / 5);
-            var cost = costsW[n] * Math.pow(2, exp);
+            let exp = Math.floor(buttonCountW[n] / 5);
+            let cost = costsW[n] * Math.pow(2, exp);
 
             if (wordCount >= cost) {
                 wordCount -= cost;
@@ -222,13 +222,13 @@ function generateButton(buttonType) {
             return 0;
         }
 
-        var n = buttonNumberM;
+        let n = buttonNumberM;
         buttonCountM.push(0);
 
         buttonsM.push([button, info]);
         button.addEventListener("click", function () {
-            var exp = Math.floor(buttonCountM[n] / 5);
-            var cost = costsM[n] * Math.pow(2, exp);
+            let exp = Math.floor(buttonCountM[n] / 5);
+            let cost = costsM[n] * Math.pow(2, exp);
 
             if (moneyCount >= cost) {
                 moneyCount -= cost;
@@ -247,20 +247,54 @@ function generateButton(buttonType) {
     }
 }
 
+function changeFlex(changeTo) {
+    flexHTML = changeTo;
+}
+
+function setFlexText() {
+    upgradesHTML = "Upgrades <br> COMING SOON";
+
+    achievementsHTML = "Achievements <br> COMING SOON";
+    
+    statsHTML = "";
+    statsHTML += "Words typed: " + numDisplay(wordsTyped) + "<br>";
+    statsHTML += "Total word count: " + numDisplay(wordTotal) + "<br>"; 
+    statsHTML += "Record typing speed: " + recordWPM + " words/min <br>";
+    statsHTML += "<br>";
+    statsHTML += "Total money earned: $" + numDisplay(moneyTotal) + "<br>";
+    statsHTML += "<br>";
+    statsHTML += "Time played: " + numDisplay(timeHours) + " hours";
+
+    if (flexHTML == "U") {
+        flexField.innerHTML = upgradesHTML;
+    }
+
+    if (flexHTML == "A") {
+        flexField.innerHTML = achievementsHTML;
+    }
+
+    if (flexHTML == "S") {
+        flexField.innerHTML = statsHTML;
+    }
+
+}
+
 function update() {
     setInterval(function () {
         checkInputWord();
         setCurrencyDisplay();
+        setFlexText();
         wordCount += wordIncome / tickRate;
         moneyCount += moneyIncome / tickRate;
-        wordCountTotal += wordIncome / tickRate;
-        moneyCountTotal += moneyIncome / tickRate;
+        wordTotal += wordIncome / tickRate;
+        moneyTotal += moneyIncome / tickRate;
+        timeHours += 1 / tickRate / 3600;
 
-        if (wordCountTotal >= costsW[buttonNumberW] / 10) {
+        if (wordTotal >= costsW[buttonNumberW] / 10) {
             generateButton("W");
         }
 
-        if (moneyCountTotal >= costsM[buttonNumberM] / 10) {
+        if (moneyTotal >= costsM[buttonNumberM] / 10) {
             generateButton("M");
         }
 
@@ -269,9 +303,9 @@ function update() {
 }
 
 function initialize() {
-    var tempDisplay = "";
+    let tempDisplay = "";
 
-    for (var i = 0; i < 100; i++) {
+    for (let i = 0; i < 100; i++) {
         const word = randWord();
         tempDisplay += word;
         displayWords.push(word);

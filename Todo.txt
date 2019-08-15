@@ -1,12 +1,11 @@
 To Do
 - Scientific notation (DONE)
-- Upgrades
-- Stats
+- Upgrades (WIP)
+- Stats (DONE)
 - Words Per Minute (DONE)
 - Events
-- Formatting
-- Balancing
-- SFX / Music
+- Formatting (WIP)
+- Balancing 
+- SFX / Music 
 
 Bugs
-- WPM progress bar only cycling once
